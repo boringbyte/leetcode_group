@@ -36,23 +36,16 @@ n == nums.length
 '''
 
 class Solution:
-    def highFive(self, items: List[List[int]]) -> List[List[int]]:
-#         d = collections.defaultdict(list)
-
-#         for id, score in items:
-#             d[id].append(score)
-
-#         for id in d:
-#             d[id] = sorted(d[id])[-5:]
-
-#         return [[i, (sum(d[i]) // 5)] for i in d]
-
-        d = collections.defaultdict(list)
-
-        for id, score in items:
-            heapq.heappush(d[id], score)
-
-        for id in d:
-            d[id] = sum(heapq.nlargest(5, d[id])) // 5
-
-        return [[idx, val] for idx, val in d.items()]
+    def xorOperation(self, n: int, start: int) -> int:
+        # nums = [None] * n
+        # for i in range(n):
+        #     nums[i] = start + 2 * i
+        # result = nums[0]
+        # for i in range(1, n):
+        #     result ^= nums[i]
+        # return result
+        
+        result = start
+        for i in range(1, n):
+            result ^= (start + (2 * i))
+        return result

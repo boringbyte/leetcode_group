@@ -27,4 +27,29 @@ Constraints:
 Both the source and target strings consist of only lowercase English letters from "a"-"z".
 The lengths of source and target string are between 1 and 1000.
 '''
+import collections
 
+class Solution:
+    def shortestWay(self, source: str, target: str) -> int:
+        s = collections.Counter(source)
+        t = collections.Counter(target)
+        for t_key in t.keys():
+            if t_key not in s.keys():
+                return -1
+        
+        target_pointer, source_length, target_length = 0, len(source), len(target)
+        result = 0
+        
+        while target_pointer < target_length:
+            source_pointer = 0
+
+            while source_pointer < source_length and target_pointer < target_length:
+                if target[target_pointer] == source[source_pointer]:
+                    target_pointer += 1
+                    source_pointer += 1
+                else:
+                    source_pointer += 1
+
+            result += 1
+        
+        return result

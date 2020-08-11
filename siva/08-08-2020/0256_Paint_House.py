@@ -13,3 +13,72 @@ Output: 10
 Explanation: Paint house 0 into blue, paint house 1 into green, paint house 2 into blue. 
              Minimum cost: 2 + 5 + 3 = 10.
 '''
+
+
+class Solution:
+    # Recursive
+    
+#     def minCost(self, costs: List[List[int]]) -> int:
+#         n = len(costs)
+        
+#         if n == 0:
+#             return 0
+        
+#         def recursive(i, c):
+#             total_cost = costs[i][c]
+#             if i == n - 1:
+#                 return total_cost
+#             elif c == 0:
+#                 total_cost += min(recursive(i+1, 1), recursive(i+1, 2))
+#             elif c == 1:
+#                 total_cost += min(recursive(i+1, 0), recursive(i+1, 2))
+#             elif c == 2:
+#                 total_cost += min(recursive(i+1, 1), recursive(i+1, 0))
+#             return total_cost
+        
+#         return min(recursive(0, 0), recursive(0, 1), recursive(0, 2))
+    
+    
+    # Top Down
+#     def minCost(self, costs: List[List[int]]) -> int:
+#         n = len(costs)
+        
+#         if n == 0:
+#             return 0
+        
+#         DP = dict()
+        
+#         def recursive(i, c):
+            
+#             if (i, c) in DP:
+#                 return DP[(i, c)]
+            
+#             total_cost = costs[i][c]
+            
+#             if i == n - 1:
+#                 DP[(i, c)] = total_cost
+#                 return total_cost
+#             elif c == 0:
+#                 total_cost += min(recursive(i+1, 1), recursive(i+1, 2))
+#             elif c == 1:
+#                 total_cost += min(recursive(i+1, 0), recursive(i+1, 2))
+#             elif c == 2:
+#                 total_cost += min(recursive(i+1, 1), recursive(i+1, 0))
+                
+#             DP[(i, c)] = total_cost
+            
+#             return total_cost
+        
+#         return min(recursive(0, 0), recursive(0, 1), recursive(0, 2))
+    
+    # Bottom Up
+    def minCost(self, costs: List[List[int]]) -> int:
+        if len(costs) == 0:
+            return 0
+        
+        for n in reversed(range(len(costs) - 1)):
+            costs[n][0] += min(costs[n + 1][1], costs[n + 1][2])
+            costs[n][1] += min(costs[n + 1][0], costs[n + 1][2])
+            costs[n][2] += min(costs[n + 1][0], costs[n + 1][1])
+
+        return min(costs[0])
